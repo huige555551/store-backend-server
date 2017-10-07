@@ -5,19 +5,29 @@ var User = require('../models/user.model');
 var Q = require('q');
 
 mongoose.connect(config.mongo.url, config.mongo.options);
-mongoose.Promise = Q;
 
 
 var db = mongoose.connection;
 
 function createAdmin () {
+  const deferred = Q.defer();
   var admin = new User({
     username: 'admin',
     password: md5('admin'),
     realname: '系统管理员',
     role: ['sys_admin', 'user_admin']
   });
-  return admin.save();
+  admin.save((err, res) => {
+    if (err) {
+      deferred.reject(err);
+    }
+    if (res) {
+      deferred.resolve('系统管理员创建成功!');
+    } else {
+      deferred.resolve('系统管理员创建失败!')
+    }
+  });
+  return deferred.promise;
 }
 
 function initialDB () {
@@ -27,20 +37,16 @@ function initialDB () {
     User.findOne({
       username: 'admin',
       realname: '系统管理员'
-    })
-      .then(doc => {
-        if (doc) {
-          deferred.resolve('系统管理员已存在!');
-        } else {
-          createAdmin()
-            .then(doc => {
-              deferred.resolve('系统管理员新建成功!');
-            });
-        }
-      })
-      .catch(err => {
-        deferred.reject('服务器启动失败:' + err);
-      });
+    }, (err, user) => {
+      if (user !== null) {
+        deferred.resolve('系统管理员已存在!');
+      } else {
+        createAdmin()
+          .then(doc => {
+            deferred.resolve(doc);
+          });
+      }
+    });
   })
   return deferred.promise;
 }

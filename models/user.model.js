@@ -3,36 +3,31 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = Schema({
-  id: Schema.ObjectId,
+  id: Schema.Types.ObjectId,
   username: {
     type: String,
-    required: true,
     max: 100
   },
   password: {
     type: String,
-    required: true,
     max: 100
   },
   realname: {
     type: String,
-    required: true,
     max: 50
   },
   role: {
-    type: Array,
-    required: true,
-    enum: ['sys_admin', 'user_admin', 'teacher', 'ta', 'student']
+    type: Array
   },
   email: String,
   avatar: String,
   sid: String,
   class_id: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Class'
   },
   group_id: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Group'
   }
 });

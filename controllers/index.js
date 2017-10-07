@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const userController = require('./user.controller');
 const authenticateController = require('./authenticate.controller');
+const tempUserController = require('./tempUser.controller');
 
 function verifyToken(req, res, next) {
   if (req.headers.token || req.query.token) {
@@ -27,5 +28,6 @@ function verifyToken(req, res, next) {
 
 router.use('/auth', authenticateController);
 router.use('/user', verifyToken, userController);
+router.use('/tempUser', tempUserController);
 
 module.exports = router;
