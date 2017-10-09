@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../config.json');
-const authService = require('../services/authenticate.service');
+const authService = require('../services/authenticate');
 const _ = require('lodash');
 
 // routes

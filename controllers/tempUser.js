@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../config.json');
-const tempUserService = require('../services/tempUser.service');
+const tempUserService = require('../services/tempUser');
 
 router.post('/insertOne', insertOneTempUser);
 router.get('/all', getAllTempUsers);

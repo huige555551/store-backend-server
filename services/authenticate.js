@@ -1,13 +1,9 @@
-const config = require('../config.json');
-const mongoose = require('mongoose');
-const User = require('../models/user.model');
+const db = require('../helpers/db');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken'); // 用来创建web token
 const Q = require('q');
 
-const db = mongoose.connect(config.mongo.url, config.mongo.options).connection;
-
 let service = {}
-
 service.authenticate = authenticate;
 
 module.exports = service;

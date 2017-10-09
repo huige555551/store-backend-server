@@ -1,13 +1,7 @@
-var mongoose = require('mongoose');
-var config = require('../config.json');
+var db = require('./db');
 var md5 = require('md5');
-var User = require('../models/user.model');
+var User = require('../models/user');
 var Q = require('q');
-
-mongoose.connect(config.mongo.url, config.mongo.options);
-
-
-var db = mongoose.connection;
 
 function createAdmin () {
   const deferred = Q.defer();

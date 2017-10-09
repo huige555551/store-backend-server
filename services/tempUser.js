@@ -1,11 +1,6 @@
-const config = require('../config.json');
-const mongoose = require('mongoose');
-const TempUser = require('../models/tempUser.model');
+const db = require('../helpers/db');
+const TempUser = require('../models/tempUser');
 const Q = require('q');
-
-mongoose.connect(config.mongo.url, config.mongo.options);
-
-var db = mongoose.connection;
 
 let service = {}
 service.insertOneTempUser = insertOneTempUser;

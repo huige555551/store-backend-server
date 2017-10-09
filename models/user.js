@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var UserSchema = Schema({
+const UserSchema = Schema({
   id: Schema.Types.ObjectId,
   username: {
     type: String,
@@ -32,6 +32,6 @@ var UserSchema = Schema({
   }
 });
 
-var model = mongoose.model('User', UserSchema);
+const model = mongoose.model('User', UserSchema);
 
 module.exports = model;

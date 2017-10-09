@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const config = require('../config.json');
-const userService = require('../services/user.service');
+const userService = require('../services/user');
 
 // routes
 // router.get('/logout', logout);
@@ -15,12 +13,12 @@ router.get('/all', getAll);
 module.exports = router;
 
 // middlewares
-
 function getAll (req, res) {
   userService.getAll()
     .then(result => {
       res.json(result);
-    }).catch(err => {
+    })
+    .catch(err => {
       res.json(err);
     });
 }
