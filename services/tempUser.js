@@ -17,7 +17,7 @@ function insertOneTempUser (tempUser) {
     if (result) {
       deferred.resolve(400);
     } else {
-      var tUser = new TempUser(tempUser);
+      let tUser = new TempUser(tempUser);
       tUser.save((err, res) => {
         if (err) {
           deferred.reject(err);

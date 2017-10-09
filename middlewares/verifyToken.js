@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const config = require('../config.json');
 function verifyToken(req, res, next) {
   if (req.headers.token || req.query.token) {
     // 如果有携带token,校验token是否合法

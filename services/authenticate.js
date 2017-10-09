@@ -1,4 +1,5 @@
 const db = require('../helpers/db');
+const config = require('../config.json');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken'); // 用来创建web token
 const Q = require('q');
@@ -15,25 +16,28 @@ function authenticate (loginForm) {
   const password = loginForm.password;
   User.findOne({ username: username }, (err, user) => {
     if (err) {
-      deferred.reject('服务器错误: ' + err.message);
+      deferred.reject(err);
     }
+    let result = {};
     if (user) {
       if (user.password === password) {
         // 验证通过后返回的用户信息: _id, username, realname, role, token
         let token = jwt.sign({ sub: user._id }, config.secret, { expiresIn: '7d' });
-        deferred.resolve({
+        result.code = 200;
+        result.user = {
           _id: user._id,
-          username: username,
+          username: user.username,
           realname: user.realname,
           role: user.role,
           token: token
-        });
+        }
       } else {
-        deferred.resolve('密码错误');
+        result.code = 401;
       }
     } else {
-      deferred.resolve('用户名不存在');
+      result.code = 404;
     }
+    deferred.resolve(result);
   });
   // 返回一个promise对象 :)
   return deferred.promise;
