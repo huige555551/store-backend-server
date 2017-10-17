@@ -6,6 +6,10 @@
     "start": "supervisor ./bin/www"
   },
   "dependencies": {
+    "connect-redis": "^3.3.2",
+    "express-session": "^1.15.6",
+    "moment": "^2.18.1",
+    "qiniu": "^7.0.8",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
