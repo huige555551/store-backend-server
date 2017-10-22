@@ -28,7 +28,7 @@ async function testUpdateManyClassify(body) {
     classifies.push({name:'分类' + i, order: 1, level: 1, showIndex: true})
   }
   for (let i = 0, len = classifies.length; i < len; i++) {
-    await Classify.create(classifies[i])
+    // await Classify.create(classifies[i])
     // await Classify.update({name: classifies[i].name}, Object.assign(classifies[i], {name: '更改后' + classifies[i].name}),
     blukArray.push(
     {
@@ -36,13 +36,15 @@ async function testUpdateManyClassify(body) {
         document: classifies[i]
       }
     })
+  }
+  for (let i = 0, len = 1000; i < len; i++) {
     blukArray.push(
-    {
-      updateOne: {
-        filter: { name: classifies[i].name },
-        update: Object.assign(classifies[i], {name: '更改后' + classifies[i].name}),
-      }
-    })
+      {
+        updateOne: {
+          filter: {name: classifies[i].name},
+          update: Object.assign(classifies[i], {name: '更改后' + classifies[i].name}),
+        }
+      })
   }
   let result = await Classify.bulkWrite(blukArray)
   console.timeEnd('bulkWrite')

@@ -3,6 +3,7 @@ var config = require('../config.json')
 var md5 = require('md5')
 var Admin = require('../models/admin.model.js')
 var Permission = require('../models/permission.model')
+var Role = require('../models/role.model')
 
 mongoose.Promise = global.Promise
 
@@ -79,13 +80,6 @@ let permissionList = [
     { name: '角色详情', identification: 'ROLE-DETAIL', moduleName: '权限模块' }]}
 ]
 
-async function createAdmin() {
-  var admin = new Admin({
-    username: 'admin',
-    password: md5('123456')
-  });
-  return await admin.save()
-}
 async function createPermission() {
   //初始化权限
   for (let i = 0, len = permissionList.length; i < len; i++) {
@@ -96,6 +90,27 @@ async function createPermission() {
     }
   }
 }
+async function createSuperAdmin() {
+  let permissions = []
+  for (let i = 0, len = permissionList.length; i < len; i++) {
+    for (let j = 0, len2 = permissionList[i].sonAuthorityList.length; j < len2; j++) {
+      let permission = await Permission.findOne({identification: permissionList[i].sonAuthorityList[j].identification})
+      permissions.push(permission._doc._id.toString())
+    }
+  }
+  var role = new Role({
+    name: '超级管理员',
+    permissionList: permissions
+  })
+  await role.save()
+  var admin = new Admin({
+    username: 'admin',
+    password: md5('123456'),
+    role: role._doc._id
+  });
+  return await admin.save()
+}
+
 async function initialDB() {
   await createPermission()
   let user = await Admin.findOne({
@@ -104,7 +119,7 @@ async function initialDB() {
   if(user) {
     return '系统管理员已存在!'
   } else {
-    let doc = await createAdmin()
+    let doc = await createSuperAdmin()
     if (doc) {
       return '系统管理员新建成功!'
     }

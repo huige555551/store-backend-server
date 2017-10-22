@@ -31,7 +31,11 @@ async function searchName(req, name) {
 }
 
 async function getList(query, perPage, page) {
-  let pagingData = await Product.find(query).skip(perPage*page).limit(perPage).sort({update_at: 'desc'}),
+  let queryCondiction = {}
+  if (query.name) {
+    queryCondiction.name = new RegExp(query.name, 'gim')// g:全局搜索，返回数组，i：忽略大小写，m：多行搜索（比如一个匹配结果在两行的换行处 就会不匹配了  添加这个 就同时搜索换行的地方）
+  }
+  let pagingData = await Product.find(queryCondiction).skip(perPage*page).limit(perPage).sort({update_at: 'desc'}),
     total = await Product.count(query)
   for (let i = 0, len = pagingData.length; i < len; i += 1) {
     pagingData[i]._doc.stock = 0
