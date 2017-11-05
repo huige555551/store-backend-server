@@ -11,11 +11,25 @@ router.get('/list', getList)
 router.delete('/delete/:id', deleteRowObject)
 router.get('/:id', getRowObject)
 router.put('/edit/:id', editRowObject)
+router.post('/updatePassword', updatePassword)
 
 
 module.exports = router
 
 // middlewares
+async function updatePassword(req, res) {
+  try {
+    const result = await adminService.updatePassword(req)
+    if (_.isString(result)) {
+      res.tools.setJson(400, result, result)
+    } else {
+      res.tools.setJson(201, '修改成功', result)
+    }
+  } catch (err) {
+    res.tools.setJson(400, err, '')
+  }
+}
+
 async function editRowObject(req, res) {
   try {
     const result = await adminService.editRowObject(req.params.id, req.body)

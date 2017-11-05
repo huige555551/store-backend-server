@@ -14,8 +14,17 @@ service.addRowObject = addRowObject
 service.deleteRowObject = deleteRowObject
 service.getRowObject = getRowObject
 service.getRowObjectByName = getRowObjectByName
+service.updatePassword = updatePassword
 
 module.exports = service
+
+async function updatePassword(req) {
+  if (req.session.user.password === md5(req.body.oldPassword)) {
+    return await Admin.findByIdAndUpdate(req.session.user._id, {password: md5(req.body.newPassword)})
+  } else {
+    return '旧密码错误'
+  }
+}
 
 async function getList(query, perPage, page) {
   let result = {}

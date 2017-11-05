@@ -11,15 +11,15 @@ let permissionList = [
   { name: '用户管理', identification: 'USER-MANAGEMENT', moduleName: '用户模块', sonAuthorityList: [
     { name: '用户列表', identification: 'USER-LIST', moduleName: '用户模块' }]},
   { name: '首页轮播管理', identification: 'CAROUSEL-MANAGEMENT', moduleName: '首页模块', sonAuthorityList: [
-    { name: '轮播列表', identification: 'CAROUSEL-LIST', moduleName: '商品模块' },
-    { name: '轮播添加', identification: 'CAROUSEL-ADD', moduleName: '商品模块' },
-    { name: '轮播修改', identification: 'CAROUSEL-EDIT', moduleName: '商品模块' },
-    { name: '轮播删除', identification: 'CAROUSEL-DELETE', moduleName: '商品模块' }]},
+    { name: '轮播列表', identification: 'CAROUSEL-LIST', moduleName: '首页模块' },
+    { name: '轮播添加', identification: 'CAROUSEL-ADD', moduleName: '首页模块' },
+    { name: '轮播修改', identification: 'CAROUSEL-EDIT', moduleName: '首页模块' },
+    { name: '轮播删除', identification: 'CAROUSEL-DELETE', moduleName: '首页模块' }]},
   { name: '精选商品管理', identification: 'FEATURE-MANAGEMENT', moduleName: '首页模块', sonAuthorityList: [
-    { name: '精选商品列表', identification: 'FEATURE-LIST', moduleName: '商品模块' },
-    { name: '精选商品添加', identification: 'FEATURE-ADD', moduleName: '商品模块' },
+    { name: '精选商品列表', identification: 'FEATURE-LIST', moduleName: '首页模块' },
+    { name: '精选商品添加', identification: 'FEATURE-ADD', moduleName: '首页模块' },
     { name: '精选商品修改', identification: 'FEATURE-EDIT', moduleName: '商品模块' },
-    { name: '精选商品删除', identification: 'FEATURE-DELETE', moduleName: '商品模块' }]},
+    { name: '精选商品删除', identification: 'FEATURE-DELETE', moduleName: '首页模块' }]},
   { name: '商品管理', identification: 'PRODUCT-MANAGEMENT', moduleName: '商品模块', sonAuthorityList: [
     { name: '商品列表', identification: 'PRODUCT-LIST', moduleName: '商品模块' },
     { name: '商品添加', identification: 'PRODUCT-ADD', moduleName: '商品模块' },
